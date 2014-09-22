@@ -16,7 +16,7 @@ The following commands are available for you to remap and/or run via the command
 
 ## Back To The Future
 
-```lisp
+```vim
 command! OpenAtom !start atom %
 ```
 
