@@ -1,21 +1,24 @@
 {exec, child} = require 'child_process'
+OS            = require 'os'
 
 module.exports =
 
   activate: (state) ->
-    atom.workspaceView.command "open-vim:open", => @open()
-
-  open: ->
-    exec "uname -s", (error, stdout, stderr) ->
+    vimType = if OS.platform() is "darwin" then "mvim" else "gvim"
+    exec "which #{vimType}", (error, stdout, stderr) =>
       if error
-        alert "operating system could not be detected"
+        alert "#{vimType} not found, make sure you started atom from the terminal and that #{vimType} is on the PATH"
       else
-        vimType = if stdout is "Darwin\n" then "mvim" else "gvim"
+        @commands = atom.commands.add "atom-workspace",
+          "open-vim:open": => @open(vimType)
+        @open(vimType) # call explicitly upon activate, since package is lazy loaded and this setup is async
 
-        exec "which #{vimType}", (error, stdout, stderr) ->
-          if error
-            alert "#{vimType} not found"
-          editor = atom.workspace.getActivePaneItem()
-          filePath = editor?.buffer.file?.path
-          if filePath
-            exec "#{vimType} --remote-silent #{filePath}"
+  open: (vimType) ->
+    editor = atom.workspace.getActiveTextEditor()
+    if editor
+      filePath = editor.getPath()
+      lineNum  = editor.bufferPositionForScreenPosition(editor.getCursorScreenPosition()).row + 1 # +1 to get actual line
+      exec "#{vimType} --remote-silent +#{lineNum} #{filePath}"
+
+  deactivate: ->
+    @commands.dispose() if @commands
