@@ -1,7 +1,7 @@
 {
   "name": "open-vim",
   "main": "./lib/open-vim",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Open a current file in Vim",
   "activationEvents": [
     "open-vim:open"
