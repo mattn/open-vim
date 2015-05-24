@@ -3,13 +3,39 @@
   "main": "./lib/open-vim",
   "version": "0.2.1",
   "description": "Open a current file in Vim",
-  "activationEvents": [
-    "open-vim:open"
-  ],
-  "repository": "https://github.com/mattn/open-vim",
+  "activationCommands": {
+    "atom-text-editor": ["open-vim:open"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattn/open-vim"
+  },
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "readme": "# open-vim - Atom package Beta\nOpen a current file in Vim.\n\n![](https://raw.githubusercontent.com/mattn/open-vim/master/open-vim.gif)\n\n## Installation\n\n```\n$ apm install open-vim\n```\n\n## Usage\nThe following commands are available for you to remap and/or run via the command palette.\n\n* `open-vim:open` - Open a current file in Vim.\n\n## Back To The Future\n\n```vim\ncommand! OpenAtom !start atom %\n```\n\n## This is based on open-emacs\n\nhttps://github.com/yoshiori/open-emacs\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mattn/open-vim/issues"
+  },
+  "homepage": "https://github.com/mattn/open-vim",
+  "_id": "open-vim@0.2.1",
+  "_shasum": "d33df4456201204919854222f79dc6476e4fdd05",
+  "_resolved": "file:../d-11528-27946-1shzmb5/package.tgz",
+  "_from": "../d-11528-27946-1shzmb5/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/open-vim.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }
