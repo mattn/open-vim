@@ -1,10 +1,12 @@
 {
   "name": "open-vim",
   "main": "./lib/open-vim",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Open a current file in Vim",
   "activationCommands": {
-    "atom-text-editor": ["open-vim:open"]
+    "atom-text-editor": [
+      "open-vim:open"
+    ]
   },
   "repository": {
     "type": "git",
