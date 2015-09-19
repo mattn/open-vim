@@ -5,7 +5,8 @@ module.exports =
 
   activate: (state) ->
     vimType = if OS.platform() is "darwin" then "mvim" else "gvim"
-    exec "which #{vimType}", (error, stdout, stderr) =>
+    which_vim = if OS.platform() is "win32" then "which #{vimType}" else "where #{vimType}"
+    exec which_vim, (error, stdout, stderr) =>
       if error
         alert "#{vimType} not found, make sure you started atom from the terminal and that #{vimType} is on the PATH"
       else
