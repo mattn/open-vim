@@ -3,7 +3,19 @@ OS            = require 'os'
 
 module.exports =
 
+  config:
+    executablePath:
+      type: "string"
+      default: ""
+
   activate: (state) ->
+    vimPath = atom.config.get "open-vim.executablePath"
+    if !!vimPath
+      @commands = atom.commands.add "atom-workspace",
+        "open-vim:open": => @open(vimPath)
+      @open(vimPath) # call explicitly upon activate, since package is lazy loaded and this setup is async
+      return
+
     vimType = if OS.platform() is "darwin" then "mvim" else "gvim"
     which_vim = if OS.platform() is "win32" then "which #{vimType}" else "where #{vimType}"
     exec which_vim, (error, stdout, stderr) =>
