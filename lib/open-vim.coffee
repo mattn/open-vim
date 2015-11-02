@@ -31,7 +31,9 @@ module.exports =
     if editor
       filePath = editor.getPath()
       lineNum  = editor.bufferPositionForScreenPosition(editor.getCursorScreenPosition()).row + 1 # +1 to get actual line
-      exec "#{vimType} --remote-silent +#{lineNum} #{filePath}"
+      exec "#{vimType} --remote-silent +#{lineNum} #{filePath}", (error, stdout, stderr) ->
+        if error
+          atom.notifications.addError error.message
 
   deactivate: ->
     @commands.dispose() if @commands
