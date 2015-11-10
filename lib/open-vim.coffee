@@ -1,5 +1,5 @@
-{exec, child} = require 'child_process'
-OS            = require 'os'
+{execFile, child} = require 'child_process'
+OS                = require 'os'
 
 module.exports =
 
@@ -17,8 +17,8 @@ module.exports =
       return
 
     vimType = if OS.platform() is "darwin" then "mvim" else "gvim"
-    whichType = if OS.platform() is "win32" then "where #{vimType}" else "which #{vimType}"
-    exec which_vim, (error, stdout, stderr) =>
+    whichType = if OS.platform() is "win32" then "where" else "which"
+    execFile whichType, [vimType], (error, stdout, stderr) =>
       if error
         alert "#{vimType} not found, make sure you started atom from the terminal and that #{vimType} is on the PATH"
       else
@@ -31,7 +31,7 @@ module.exports =
     if editor
       filePath = editor.getPath()
       lineNum  = editor.bufferPositionForScreenPosition(editor.getCursorScreenPosition()).row + 1 # +1 to get actual line
-      exec "#{vimType} --remote-silent +#{lineNum} #{filePath}", (error, stdout, stderr) ->
+      execFile vimType, ["--remote-silent", "+#{lineNum}", filePath], (error, stdout, stderr) ->
         if error
           atom.notifications.addError error.message
 
