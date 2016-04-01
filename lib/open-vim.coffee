@@ -31,7 +31,8 @@ module.exports =
     if editor
       filePath = editor.getPath()
       lineNum  = editor.bufferPositionForScreenPosition(editor.getCursorScreenPosition()).row + 1 # +1 to get actual line
-      execFile vimType, ["--remote-silent", "+#{lineNum}", filePath], (error, stdout, stderr) ->
+      colNum   = editor.bufferPositionForScreenPosition(editor.getCursorScreenPosition()).column + 1
+      execFile vimType, ["--remote-silent", "+call cursor(#{lineNum}, #{colNum})", filePath], (error, stdout, stderr) ->
         if error
           atom.notifications.addError error.message
 
